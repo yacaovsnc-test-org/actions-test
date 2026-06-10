@@ -19,4 +19,10 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: exit 1
+        run: echo "hello world"
+        
+      - name: Fail on Merge Queue
+        if: ${{ github.event_name == 'merge_group' }}
+        run: |
+          echo "Error: This step is blocked from running in a merge group context."
+          exit 1
